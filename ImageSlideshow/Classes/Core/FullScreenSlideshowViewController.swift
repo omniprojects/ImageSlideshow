@@ -103,7 +103,7 @@ open class FullScreenSlideshowViewController: UIViewController {
         slideshow.frame = view.frame
     }
 
-    @objc func close() {
+    @objc open func close() {
         // if pageSelected closure set, send call it with current page
         if let pageSelected = pageSelected {
             pageSelected(slideshow.currentPage)
