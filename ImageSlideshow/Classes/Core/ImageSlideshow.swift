@@ -58,6 +58,9 @@ open class ImageSlideshow: UIView {
     /// Scroll View to wrap the slideshow
     public let scrollView = UIScrollView()
 
+    /// Provides a handler for tap detection
+    public var didTap: (() -> Void)?
+
     /// Page Control shown in the slideshow
     @available(*, deprecated, message: "Use pageIndicator.view instead")
     open var pageControl: UIPageControl {
@@ -66,6 +69,8 @@ open class ImageSlideshow: UIView {
         }
         fatalError("pageIndicator is not an instance of UIPageControl")
     }
+    
+    open var singleTap: UITapGestureRecognizer? = nil
 
     /// Activity indicator shown when loading image
     open var activityIndicator: ActivityIndicatorFactory? {
@@ -214,6 +219,12 @@ open class ImageSlideshow: UIView {
         return scrollView.frame.size.width > 0 ? Int(scrollView.contentOffset.x + scrollView.frame.size.width / 2) / Int(scrollView.frame.size.width) : 0
     }
 
+    // MARK: - Handlers
+    
+    @objc func tapped(sender: Any) {
+        didTap?()
+    }
+    
     // MARK: - Life cycle
 
     override public init(frame: CGRect) {
@@ -246,6 +257,14 @@ open class ImageSlideshow: UIView {
             scrollView.contentInsetAdjustmentBehavior = .never
         }
         addSubview(scrollView)
+
+        singleTap = UITapGestureRecognizer(target: self, action: #selector(ImageSlideshow.tapped(sender:)))
+        singleTap?.numberOfTapsRequired = 1
+        singleTap?.isEnabled = true;
+        singleTap?.cancelsTouchesInView = true
+        if let singleTap = singleTap {
+            scrollView.addGestureRecognizer(singleTap)
+        }
 
         if let pageIndicator = pageIndicator {
             addSubview(pageIndicator.view)
@@ -317,6 +336,9 @@ open class ImageSlideshow: UIView {
         var i = 0
         for image in scrollViewImages {
             let item = ImageSlideshowItem(image: image, zoomEnabled: zoomEnabled, activityIndicator: activityIndicator?.create(), maximumScale: maximumScale)
+            if let gestureRecognizer = item.gestureRecognizer {
+                singleTap?.require(toFail: gestureRecognizer)
+            }
             item.imageView.contentMode = contentScaleMode
             slideshowItems.append(item)
             scrollView.addSubview(item)

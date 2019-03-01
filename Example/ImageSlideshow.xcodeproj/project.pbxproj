@@ -378,7 +378,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ImageSlideshow_Example/Pods-ImageSlideshow_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ImageSlideshow_Example/Pods-ImageSlideshow_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
@@ -397,7 +397,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ImageSlideshow_Example/Pods-ImageSlideshow_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ImageSlideshow_Example/Pods-ImageSlideshow_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C32710DF8FE75A6D757948CC /* [CP] Check Pods Manifest.lock */ = {

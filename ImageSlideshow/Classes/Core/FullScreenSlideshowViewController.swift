@@ -18,7 +18,9 @@ open class FullScreenSlideshowViewController: UIViewController {
         // turns off the timer
         slideshow.slideshowInterval = 0
         slideshow.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
-
+        slideshow.didTap = {
+            print("Tapped")
+        }
         return slideshow
     }()
 
@@ -46,7 +48,7 @@ open class FullScreenSlideshowViewController: UIViewController {
             slideshow.zoomEnabled = zoomEnabled
         }
     }
-
+    
     fileprivate var isInit = true
 
     override open func viewDidLoad() {
